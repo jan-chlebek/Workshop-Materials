@@ -11,6 +11,11 @@ Additional contact details available via my website: [janchlebek.com](https://ja
 # Resources:
 
 ## Reading/reference materials
+### Understanding esings
+- [EasingAnimation component | PowerApps](https://e-gallis.github.io/PowerApps/Components/EasingAnimation/)
+- https://easings.net/#
+- https://blog.febucci.com/2018/08/easing-functions/
+
 ### SVG Animations
 - SVG Progress Bars (by Charles Sexton): 
 	- https://www.charlessexton.com/blog/animated-progress-bar-in-power-apps
