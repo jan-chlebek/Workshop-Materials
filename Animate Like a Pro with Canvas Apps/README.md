@@ -10,8 +10,36 @@ Additional contact details available via my website: [janchlebek.com](https://ja
 
 # Resources:
 
+## Reading/reference materials
+### SVG Animations
+- SVG Progress Bars (by Charles Sexton): 
+	- https://www.charlessexton.com/blog/animated-progress-bar-in-power-apps
+	- https://www.charlessexton.com/blog/animated-text-in-power-apps
+- SVG Animated Hamburger Icon (by Charles Sexton):: https://www.youtube.com/watch?v=SI1tCOUg1_w
+- Patrik Seitz - animated button + Ease_in_out function https://www.linkedin.com/pulse/animations-powerapps-patrik-seitz-5p0ee/
+- Light-Dark mode switcher by Kristine Kolodziejski https://github.com/kristinekolodziejski/LightDarkModeAnimated
+- Animated background by Kristine Kolodziejski https://github.com/kristinekolodziejski/LandingPageAnimation
+- Spinners: https://github.com/n3r4zzurr0/svg-spinners
+- Spinners: https://magecdn.com/tools/svg-loaders
+- Animated SVGs (paid): https://powersnippet.com/
+- 
+### Lottie animations:
+- https://lottiefiles.com/
+- https://iconscout.com/
+
+### PCFs and snippets
+- PCF: https://pcf.gallery/
+- Power Apps Snippets: https://powerappstools.com/
+
+
 ## Downloads:
 - Download full Solution
+  - Recommended: [Managed solution with demo app and all PCFs](/Animate%20Like%20a%20Pro%20with%20Canvas%20Apps/Animate%20like%20a%20pro%20demo%20solution/AnimateLikeAPro_1_0_0_0_managed.zip)
+  - [Unmanaged solution with demo app and all PCFs](/Animate%20Like%20a%20Pro%20with%20Canvas%20Apps/Animate%20like%20a%20pro%20demo%20solution/AnimateLikeAPro_1_0_0_0_unmanaged.zip)
+  - [msapp file for demo app](/Animate%20Like%20a%20Pro%20with%20Canvas%20Apps/Animate%20like%20a%20pro%20demo%20solution/Animate%20like%20a%20pro.msapp)
+
+In case update for PCFs was released, it's best to use unmanaged solution.
+In case your environment doesn't allow PCFs, it's best to import msapp file.
 
 
 - Implemented PCFs:
