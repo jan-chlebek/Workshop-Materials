@@ -13,7 +13,7 @@ Additional contact details available via my website: [janchlebek.com](https://ja
 ## Reading/reference materials
 ### Understanding esings
 - [EasingAnimation component | PowerApps](https://e-gallis.github.io/PowerApps/Components/EasingAnimation/)
-- https://easings.net/#
+- https://easings.net/
 - https://blog.febucci.com/2018/08/easing-functions/
 
 ### SVG Animations
@@ -27,7 +27,7 @@ Additional contact details available via my website: [janchlebek.com](https://ja
 - Spinners: https://github.com/n3r4zzurr0/svg-spinners
 - Spinners: https://magecdn.com/tools/svg-loaders
 - Animated SVGs (paid): https://powersnippet.com/
-- 
+
 ### Lottie animations:
 - https://lottiefiles.com/
 - https://iconscout.com/
@@ -53,4 +53,4 @@ In case your environment doesn't allow PCFs, it's best to import msapp file.
   - [OnHoverReactPCF by  Allan Vazquez](https://pcf.gallery/onhoverreactpcf/) under [MIT license](https://github.com/alnvee/OnHoverReactPCF?tab=MIT-1-ov-file#readme)
   - [Customisable HTML Tooltip](https://pcf.gallery/customisable-html-tooltip) under [MIT license](https://github.com/ydgs/PCF-CustomisableHTMLTooltipSolution?tab=MIT-1-ov-file#readme)
 
-In case any of sources is removed, current versions of all 4 PCF components were archieved under *PCF Sources* folder
+In case any of sources is removed, current versions of all 4 PCF components were archieved under *[PCF Sources](/Animate%20Like%20a%20Pro%20with%20Canvas%20Apps/PCF%20Sources)* folder
