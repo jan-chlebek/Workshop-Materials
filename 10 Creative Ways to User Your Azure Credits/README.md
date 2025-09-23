@@ -20,7 +20,9 @@ Additional contact details available via my website: [janchlebek.com](https://ja
 	- https://learn.microsoft.com/en-us/office/developer-program/microsoft-365-developer-program-faq
 - Microsoft E1 Purchase link: https://www.microsoft.com/en-us/microsoft-365/enterprise/office-365-e1
 
-- Connect GitHub to Azure Subscription: https://docs.github.com/en/billing/how-tos/set-up-payment/connect-azure-sub
+- Connect GitHub to Azure Subscription:
+  - Create new organization: https://github.com/account/organizations/new
+  - How to set up billing https://docs.github.com/en/billing/how-tos/set-up-payment/connect-azure-sub
 
 - Power Platform PAYG Billing Setup
 	- https://admin.powerplatform.microsoft.com/licensing/billingplans
