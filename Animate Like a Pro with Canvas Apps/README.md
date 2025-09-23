@@ -1,6 +1,5 @@
 # Session details
-Power Platform (r)evolution: Let's build a Canvas App from the 2010s.
-Secondary Title: A Case Study of Project Siena and Project Kratos
+Animate like a pro with Canvas Apps
 
 Further details available in [Sessionize](https://sessionize.com/s/jan-chlebek/animate-like-a-pro-with-canvas-apps/140918)
 
