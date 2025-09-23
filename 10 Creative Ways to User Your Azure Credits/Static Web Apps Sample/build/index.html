@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hello World Template</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-alt: #1e293b;
+      --text: #f1f5f9;
+      --accent: #38bdf8;
+      --accent-soft: #0ea5e9;
+      --radius: 14px;
+      --font-stack: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', Arial, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-stack);
+      min-height: 100dvh;
+      background: radial-gradient(circle at 25% 20%, #134e4a 0%, #0f172a 55%, #020617 100%);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      -webkit-font-smoothing: antialiased;
+    }
+    .stage {
+      width: min(100%, 900px);
+      padding: clamp(1.5rem, 3vw, 3rem);
+      border-radius: 28px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      backdrop-filter: blur(14px) saturate(160%);
+      -webkit-backdrop-filter: blur(14px) saturate(160%);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.08),
+        0 10px 35px -10px rgba(0,0,0,0.6),
+        0 20px 55px -20px rgba(0,0,0,0.7);
+      position: relative;
+      overflow: hidden;
+    }
+    .stage::before, .stage::after {
+      content: '';
+      position: absolute;
+      width: 480px; height: 480px;
+      background: radial-gradient(circle at center, rgba(56,189,248,0.18), transparent 70%);
+      filter: blur(40px) saturate(140%);
+      opacity: 0.6;
+      pointer-events: none;
+      animation: float 18s linear infinite;
+    }
+    .stage::before { top: -240px; left: -200px; animation-direction: reverse; }
+    .stage::after { bottom: -250px; right: -200px; }
+    @keyframes float { 0% { transform: translateY(0) rotate(0deg);} 50% { transform: translateY(-25px) rotate(180deg);} 100% { transform: translateY(0) rotate(360deg);} }
+
+    header { text-align: center; margin-bottom: 2.25rem; }
+    h1 {
+      font-size: clamp(2.5rem, 6vw, 4.2rem);
+      line-height: 1.05;
+      font-weight: 700;
+      background: linear-gradient(90deg, #fff, #bae6fd, #38bdf8 70%);
+  -webkit-background-clip: text;
+  background-clip: text; /* standard property for compatibility */
+  color: transparent;
+      letter-spacing: -0.03em;
+      text-wrap: balance;
+      margin-bottom: 1rem;
+    }
+    p.tagline {
+      font-size: clamp(1.05rem, 2.1vw, 1.35rem);
+      font-weight: 500;
+      color: #cbd5e1;
+      text-wrap: pretty;
+    }
+
+    .hello-block {
+      margin: 3rem auto 2.5rem;
+      padding: 2.2rem clamp(1.25rem, 2vw, 2rem);
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, rgba(56,189,248,0.18), rgba(14,165,233,0.16));
+      border: 1px solid rgba(255,255,255,0.15);
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .hello-block::before {
+      content: 'Hello';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: clamp(5rem, 24vw, 14rem);
+      font-weight: 700;
+      line-height: 0.75;
+      background: linear-gradient(90deg, rgba(255,255,255,0.12), rgba(255,255,255,0.02));
+  -webkit-background-clip: text;
+  background-clip: text; /* standard property */
+  color: transparent;
+      opacity: 0.5;
+      filter: blur(4px);
+      letter-spacing: -0.05em;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .hello-text {
+      font-size: clamp(1.75rem, 4.4vw, 3.25rem);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      display: inline-block;
+      background: linear-gradient(90deg, #fff, #e0f2fe 60%, #bae6fd 100%);
+  -webkit-background-clip: text;
+  background-clip: text; /* standard property */
+  color: transparent;
+      filter: drop-shadow(0 4px 18px rgba(56,189,248,0.25));
+    }
+
+    .notes { display: grid; gap: 1rem; margin: 2.25rem 0 0; }
+    .note-row { display: flex; gap: 0.75rem; align-items: flex-start; }
+    .note-row span.bullet {
+      width: 0.85rem; height: 0.85rem;
+      border-radius: 3px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+      margin-top: 0.45rem;
+      box-shadow: 0 4px 12px -2px rgba(56,189,248,0.4);
+      flex-shrink: 0;
+    }
+    .note-row p { font-size: 0.95rem; color: #94a3b8; line-height: 1.55; }
+
+    footer { margin-top: 2.75rem; text-align: center; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.55; }
+
+    /* Utility classes for re‑use during presentation */
+    .hidden { display: none !important; }
+    .fade-in { animation: fade 0.8s ease forwards; opacity: 0; }
+    @keyframes fade { from { opacity: 0; transform: translateY(6px);} to { opacity: 1; transform: translateY(0);} }
+
+    @media (max-width: 640px) {
+      .stage { border-radius: 0; box-shadow: none; min-height: 100dvh; display: flex; flex-direction: column; justify-content: center; }
+      body { padding: 0; }
+      .hello-block { margin: 2.25rem 0 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <main class="stage" role="main">
+    <header>
+      <h1>Hello World</h1>
+      <p class="tagline">A clean starter slide for live coding & rapid demo iterations</p>
+    </header>
+
+    <section class="hello-block" aria-labelledby="hello-heading">
+      <div class="hello-text" id="hello-heading">Hello, World! 👋</div>
+      <div class="notes" id="notes">
+        <div class="note-row fade-in"><span class="bullet"></span><p>Use this single file as a minimal template. Add or remove sections live.</p></div>
+        <div class="note-row fade-in" style="animation-delay:.12s"><span class="bullet"></span><p>Styling is self‑contained. Delete blocks you don't need. No build step required.</p></div>
+        <div class="note-row fade-in" style="animation-delay:.22s"><span class="bullet"></span><p>Utility classes (e.g. <code>.hidden</code>, <code>.fade-in</code>) help reveal content progressively.</p></div>
+      </div>
+    </section>
+
+    <footer>Template Ready • Safe to Customize</footer>
+  </main>
+
+  <script>
+    // Simple runtime helpers you can expand during demo
+    const api = {
+      addNote(text) {
+        const row = document.createElement('div');
+        row.className = 'note-row fade-in';
+        row.style.animationDelay = '.05s';
+        row.innerHTML = '<span class="bullet"></span><p>' + text + '</p>';
+        document.getElementById('notes').appendChild(row);
+      },
+      toggleHello() {
+        document.querySelector('.hello-block').classList.toggle('hidden');
+      }
+    };
+    // Expose for console experimentation during presentation
+    window.demo = api;
+    // Example: uncomment to show how note injection works
+    // setTimeout(()=>api.addNote('Dynamically injected note.'), 2000);
+  </script>
+</body>
+</html>
