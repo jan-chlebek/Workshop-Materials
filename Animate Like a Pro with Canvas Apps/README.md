@@ -37,7 +37,8 @@ Additional contact details available via my website: [janchlebek.com](https://ja
 
 
 ## Downloads:
-- Download full Solution
+- Install dependencies from [PCF Sources](/Animate%20Like%20a%20Pro%20with%20Canvas%20Apps/PCF%20Sources/)
+- Download Install app solution:
   - Recommended: [Managed solution with demo app and all PCFs](/Animate%20Like%20a%20Pro%20with%20Canvas%20Apps/Animate%20like%20a%20pro%20demo%20solution/AnimateLikeAPro_1_0_0_0_managed.zip)
   - [Unmanaged solution with demo app and all PCFs](/Animate%20Like%20a%20Pro%20with%20Canvas%20Apps/Animate%20like%20a%20pro%20demo%20solution/AnimateLikeAPro_1_0_0_0_unmanaged.zip)
   - [msapp file for demo app](/Animate%20Like%20a%20Pro%20with%20Canvas%20Apps/Animate%20like%20a%20pro%20demo%20solution/Animate%20like%20a%20pro.msapp)
