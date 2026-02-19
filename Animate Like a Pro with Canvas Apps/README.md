@@ -19,7 +19,7 @@ Additional contact details available via my website: [janchlebek.com](https://ja
 - SVG Progress Bars (by Charles Sexton): 
 	- https://www.charlessexton.com/blog/animated-progress-bar-in-power-apps
 	- https://www.charlessexton.com/blog/animated-text-in-power-apps
-- SVG Animated Hamburger Icon (by Charles Sexton):: https://www.youtube.com/watch?v=SI1tCOUg1_w
+- SVG Animated Hamburger Icon (by Charles Sexton): https://www.youtube.com/watch?v=SI1tCOUg1_w
 - Patrik Seitz - animated button + Ease_in_out function https://www.linkedin.com/pulse/animations-powerapps-patrik-seitz-5p0ee/
 - Light-Dark mode switcher by Kristine Kolodziejski https://github.com/kristinekolodziejski/LightDarkModeAnimated
 - Animated background by Kristine Kolodziejski https://github.com/kristinekolodziejski/LandingPageAnimation
@@ -34,16 +34,17 @@ Additional contact details available via my website: [janchlebek.com](https://ja
 ### PCFs and snippets
 - PCF: https://pcf.gallery/
 - Power Apps Snippets: https://powerappstools.com/
+- Build Your First PCF Control in Power Apps (With AI) by Ryan Johnston: https://www.youtube.com/watch?v=TGgtrYH2l5k
 
 
 ## Downloads:
 - Install dependencies from [PCF Sources](/Animate%20Like%20a%20Pro%20with%20Canvas%20Apps/PCF%20Sources/)
-- Download Install app solution:
+- Download and install the app solution:
   - Recommended: [Managed solution with demo app and all PCFs](/Animate%20Like%20a%20Pro%20with%20Canvas%20Apps/Animate%20like%20a%20pro%20demo%20solution/AnimateLikeAPro_1_0_0_0_managed.zip)
   - [Unmanaged solution with demo app and all PCFs](/Animate%20Like%20a%20Pro%20with%20Canvas%20Apps/Animate%20like%20a%20pro%20demo%20solution/AnimateLikeAPro_1_0_0_0_unmanaged.zip)
   - [msapp file for demo app](/Animate%20Like%20a%20Pro%20with%20Canvas%20Apps/Animate%20like%20a%20pro%20demo%20solution/Animate%20like%20a%20pro.msapp)
 
-In case update for PCFs was released, it's best to use unmanaged solution.
+In case an update for PCFs was released, it's best to usan e unmanaged solution.
 In case your environment doesn't allow PCFs, it's best to import msapp file.
 
 
@@ -53,4 +54,4 @@ In case your environment doesn't allow PCFs, it's best to import msapp file.
   - [OnHoverReactPCF by  Allan Vazquez](https://pcf.gallery/onhoverreactpcf/) under [MIT license](https://github.com/alnvee/OnHoverReactPCF?tab=MIT-1-ov-file#readme)
   - [Customisable HTML Tooltip](https://pcf.gallery/customisable-html-tooltip) under [MIT license](https://github.com/ydgs/PCF-CustomisableHTMLTooltipSolution?tab=MIT-1-ov-file#readme)
 
-In case any of sources is removed, current versions of all 4 PCF components were archieved under *[PCF Sources](/Animate%20Like%20a%20Pro%20with%20Canvas%20Apps/PCF%20Sources)* folder
+In case any of the sources is removed, current versions of all 4 PCF components were archived under *[PCF Sources](/Animate%20Like%20a%20Pro%20with%20Canvas%20Apps/PCF%20Sources)* folder
