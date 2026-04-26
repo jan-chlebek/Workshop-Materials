@@ -4,7 +4,6 @@
 Further details available in [Sessionize](https://sessionize.com/s/jan-chlebek/10-creative-ways-to-use-your-azure-credits-sometim/148370)
 
 # Meet the speaker: [Jan Chlebek](https://www.linkedin.com/in/jan-chlebek/)
-Additional contact details available via my website: [janchlebek.com](https://janchlebek.com/about) - blog coming soon!
 
 
 # Resources:

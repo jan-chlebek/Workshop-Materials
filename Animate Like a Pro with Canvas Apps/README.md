@@ -4,7 +4,6 @@ Animate like a pro with Canvas Apps
 Further details available in [Sessionize](https://sessionize.com/s/jan-chlebek/animate-like-a-pro-with-canvas-apps/140918)
 
 # Meet the speaker: [Jan Chlebek](https://www.linkedin.com/in/jan-chlebek/)
-Additional contact details available via my website: [janchlebek.com](https://janchlebek.com/about) - blog coming soon!
 
 
 # Resources:
