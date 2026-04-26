@@ -1,0 +1,33 @@
+subscription_id      = "YOUR_SUBSCRIPTION_ID"
+location             = "westus3"
+resource_group_name  = "rg-powerplatform-appservices-westus3"
+function_app_name    = "func-pp-vnet-workshop-westus3"
+app_service_name     = "app-pp-vnet-workshop-westus3"
+storage_account_name = "stppvnetworkshopwus3"
+hosting_plan_name    = "asp-pp-vnet-workshop-westus3"
+
+# Dedicated VNET
+vnet_name = "vnet-appservices-westus3"
+# vnet_address_space                = ["10.10.0.0/16"]
+# integration_subnet_name           = "snet-integration"
+# integration_subnet_address_prefix = ["10.10.0.0/24"]
+# endpoints_subnet_name             = "snet-endpoints"
+# endpoints_subnet_address_prefix   = ["10.10.1.0/24"]
+
+# Must match the Power Platform VNET infrastructure
+pp_vnets = {
+  primary = {
+    location              = "eastus"
+    resource_group_name   = "rg-powerplatform-vnet-primary-eastus"
+    vnet_name             = "vnet-powerplatform-primary-eastus"
+    endpoints_subnet_name = "snet-endpoints"
+  }
+  secondary = {
+    location              = "westus"
+    resource_group_name   = "rg-powerplatform-vnet-secondary-westus"
+    vnet_name             = "vnet-powerplatform-secondary-westus"
+    endpoints_subnet_name = "snet-endpoints"
+  }
+}
+pp_shared_resource_group_name = "rg-powerplatform-vnet-shared"
+# storage_blob_container_name = "app-package-container"

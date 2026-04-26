@@ -1,0 +1,34 @@
+subscription_id                = "YOUR-SUBSCRIPTION-ID"
+power_platform_environment_id  = "YOUR-ENVIRONMENT-GUID"
+internal_domain_name           = "contoso.com" # Replace with your company's internal domain
+
+shared_resource_group = {
+  name     = "rg-powerplatform-shared"
+  location = "eastus"
+}
+
+vnets = {
+  primary = {
+    location                        = "eastus"
+    resource_group_name             = "rg-powerplatform-vnet-primary-eastus"
+    vnet_name                       = "vnet-powerplatform-primary-eastus"
+    vnet_address_space              = ["10.100.0.0/16"]
+    subnet_name                     = "snet-powerplatform-delegation"
+    subnet_address_prefix           = ["10.100.0.0/19"]
+    endpoints_subnet_name           = "snet-endpoints"
+    endpoints_subnet_address_prefix = ["10.100.32.0/19"]
+  }
+  secondary = {
+    location                        = "westus"
+    resource_group_name             = "rg-powerplatform-vnet-secondary-westus"
+    vnet_name                       = "vnet-powerplatform-secondary-westus"
+    vnet_address_space              = ["10.200.0.0/16"]
+    subnet_name                     = "snet-powerplatform-delegation"
+    subnet_address_prefix           = ["10.200.0.0/19"]
+    endpoints_subnet_name           = "snet-endpoints"
+    endpoints_subnet_address_prefix = ["10.200.32.0/19"]
+  }
+}
+
+# Optional overrides
+# enterprise_policy_location     = "unitedstates"
