@@ -7,7 +7,7 @@ Further details available in [Sessionize](https://sessionize.com/s/jan-chlebek/b
 
 
 # Resources:
-- Sample Terraform Configuration - [available on my git](/VNET%20Terraform/)
+- Sample Terraform Configuration - [available on my git](https://github.com/jan-chlebek/Workshop-Materials/tree/main/Behind%20the%20wall%20of%20fire%20-%20Navigating%20Power%20Platform%20Networking/VNET%20Terraform)
 - Microsoft Blog
 	- [Announcing public preview of virtual network support for Power Platform Dataverse plug-ins and Connectors](https://www.microsoft.com/en-us/power-platform/blog/power-apps/announcing-public-preview-of-virtual-network-support-for-power-platform-dataverse-plug-ins-and-connectors/)
 	- [2023 Release wave 2 plan announcement - Connect Dataverse plug-ins to endpoint-enabled resources](https://learn.microsoft.com/en-us/previous-versions/power-platform/release-plan/2023wave2/power-platform-governance-administration/allow-dataverse-plug-ins-connect-private-endpoint-enabled-resources?source=recommendations)
