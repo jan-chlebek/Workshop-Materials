@@ -28,6 +28,21 @@ output "enterprise_policy_id" {
   value       = azapi_resource.enterprise_policy.id
 }
 
+output "enterprise_policy_system_id" {
+  description = "Enterprise Policy system ID used for the Power Platform environment association"
+  value       = azapi_resource.enterprise_policy.output.properties.systemId
+}
+
+output "power_platform_environment_id" {
+  description = "GUID of the Power Platform environment managed by Terraform"
+  value       = powerplatform_environment.this.id
+}
+
+output "power_platform_environment_url" {
+  description = "Dataverse URL of the Power Platform environment"
+  value       = powerplatform_environment.this.dataverse.url
+}
+
 output "enterprise_policy_identity" {
   description = "System-assigned managed identity of the Enterprise Policy"
   value       = azapi_resource.enterprise_policy.identity

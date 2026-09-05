@@ -1,6 +1,6 @@
 # Power Platform VNET Injection — Terraform Setup
 
-This repository contains two **independent** Terraform projects that together provision the Azure networking infrastructure required for Power Platform VNET injection.
+This repository contains two **independent** Terraform projects that together provision a Power Platform environment, its VNET injection policy association, and the Azure networking infrastructure.
 
 The `vnet/` project is the core setup. The `azure-functions/` project is a **sample** set of resources demonstrating how to deploy and integrate services (Function App, Web App) onto the VNET — it can be adapted or replaced with your own workloads.
 
@@ -51,9 +51,9 @@ The `vnet/` project is the core setup. The `azure-functions/` project is a **sam
 
 ## Project 1: `vnet/` — Power Platform VNET Infrastructure
 
-The core networking layer. Provisions everything Power Platform needs for VNET injection.
+Provisions the Azure networking, a Power Platform Sandbox with Dataverse, Managed Environment settings, and the NetworkInjection enterprise policy association.
 
-> **Prerequisite:** A Power Platform environment must already be provisioned in the US region before deploying this project. The `power_platform_environment_id` variable expects the GUID of an existing environment. This setup does not cover environment provisioning — it focuses solely on the Azure networking and VNET injection configuration.
+> **Prerequisites:** Terraform >= 1.5, Azure CLI, a Power Platform administrator account with available Dataverse capacity and appropriate Managed Environment licensing, and permissions to create the Azure resources, Entra security group, and Azure role assignment. Register `Microsoft.PowerPlatform` in the Azure subscription before deployment. The account linking the policy needs read access to it; the sample admin group is created empty, so its Reader assignment alone does not grant the deploying user access.
 
 ### Resources Created
 
@@ -70,7 +70,9 @@ The core networking layer. Provisions everything Power Platform needs for VNET i
 | **Private DNS Zones** (×7 + internal) | `privatelink.azurewebsites.net`, `*.core.windows.net`, SQL, Search + company internal domain |
 | **Enterprise Policy** (AzAPI) | `NetworkInjection` kind — links both VNETs to Power Platform |
 | **Entra ID Security Group** | Power Platform Admins group with Reader role on the Enterprise Policy |
-| **Environment Link** (local-exec) | Runs `Enable-SubnetInjection` PowerShell cmdlet to activate VNET injection |
+| **Power Platform Environment** | Terraform-managed Sandbox with Dataverse in the policy geography |
+| **Managed Environment** | Enables the managed features required for VNET support |
+| **Environment Link** | `powerplatform_enterprise_policy` assigns the NetworkInjection policy using its system ID |
 | **App Service Plan + Web App** | P0v3 Linux, Node 24 LTS, private endpoints in both VNETs |
 
 ### Providers
@@ -78,10 +80,13 @@ The core networking layer. Provisions everything Power Platform needs for VNET i
 - `azurerm ~> 4.0` — core Azure resources
 - `azapi ~> 2.0` — Enterprise Policy (not in AzureRM)
 - `azuread ~> 3.0` — Entra ID security group
+- `microsoft/power-platform ~> 4.1` — environment, Managed Environment settings, and policy assignment
 
 ### Usage
 
 ```bash
+az login --tenant YOUR-TENANT-ID
+az account set --subscription YOUR-SUBSCRIPTION-ID
 cd vnet/
 cp terraform.tfvars.example terraform.tfvars
 # Edit terraform.tfvars with your values
@@ -90,12 +95,26 @@ terraform plan
 terraform apply
 ```
 
-### Required Variables
+### Input Variables
 
 | Variable | Description |
 |---|---|
 | `subscription_id` | Azure subscription ID |
-| `power_platform_environment_id` | Power Platform environment GUID |
+| `power_platform_environment_name` | Optional display name; defaults to `Power Platform Networking Workshop` |
+| `dataverse_language_code` / `dataverse_currency_code` | Optional Dataverse settings; default to `1033` / `USD` |
+| `power_platform_environment_security_group_id` | Optional Entra group for environment access; defaults to the all-zero GUID (no group restriction) |
+
+### Environment provisioning and policy assignment
+
+Terraform creates the Sandbox in `enterprise_policy_location` (`unitedstates` by default), matching the policy geography. If you change the geography, update both VNET regions to a supported pair. The environment uses `dataverse_language_code` and `dataverse_currency_code` for its database.
+
+`powerplatform_enterprise_policy.environment_link` uses `azapi_resource.enterprise_policy.output.properties.systemId`; this is the Power Platform system ID, not the Azure ARM resource ID. The assignment waits for Managed Environment configuration, policy Reader assignment, NAT connectivity, and DNS links.
+
+The Power Platform provider uses the Azure CLI user session (`use_cli = true`). PAC CLI and the Enterprise Policies PowerShell module are not required. Use a user login for this workshop; the provider's environment documentation lists service principal authentication as unsupported for this resource.
+
+For an existing deployment, remove the old `power_platform_environment_id` input. Before applying, import the existing environment into `powerplatform_environment.this` and reconcile its name, type, geography, and Dataverse settings with the configuration to avoid creating a second environment. The policy assignment is now a different Terraform resource from `terraform_data.environment_link`; review the plan and existing association before applying this migration. The new environment is owned by Terraform and is included in `terraform destroy`.
+
+References: [environment resource](https://github.com/microsoft/terraform-provider-power-platform/blob/main/docs/resources/environment.md), [enterprise policy assignment](https://github.com/microsoft/terraform-provider-power-platform/blob/main/docs/resources/enterprise_policy.md), [Azure CLI authentication](https://github.com/microsoft/terraform-provider-power-platform/blob/main/docs/guides/azure_cli.md), and [VNET prerequisites and region mapping](https://learn.microsoft.com/en-us/power-platform/admin/vnet-support-setup-configure).
 
 ### Key Outputs
 
@@ -105,6 +124,8 @@ terraform apply
 | `subnet_ids` | Delegated subnet IDs keyed by role |
 | `endpoints_subnet_ids` | Private endpoints subnet IDs |
 | `enterprise_policy_id` | Enterprise Policy ARM resource ID |
+| `enterprise_policy_system_id` | Power Platform policy system ID used for the association |
+| `power_platform_environment_id` / `power_platform_environment_url` | Created environment GUID and Dataverse URL |
 | `nat_gateway_ids` | NAT Gateway IDs keyed by role |
 
 ### Files
@@ -114,7 +135,7 @@ vnet/
 ├── main.tf                  # All resources (VNETs, subnets, NSGs, NAT GWs, DNS, Enterprise Policy, peering, App Service)
 ├── variables.tf             # Input variables with defaults
 ├── outputs.tf               # Exported resource IDs
-├── providers.tf             # azurerm + azapi + azuread provider config
+├── providers.tf             # azurerm + azapi + azuread + powerplatform provider config
 └── terraform.tfvars.example # Sample variable values
 ```
 
@@ -212,7 +233,7 @@ azure-functions/
 
 ## Deployment Order
 
-1. **`vnet/`** — Deploy the VNET infrastructure first (VNETs, DNS zones, Enterprise Policy, environment link)
+1. **`vnet/`** — Deploy the VNET infrastructure first (VNETs, DNS zones, Enterprise Policy, Dataverse Sandbox, Managed Environment settings, environment link)
 2. **`azure-functions/`** — Deploy app services second (references existing PP VNET subnets and DNS zones)
 
 

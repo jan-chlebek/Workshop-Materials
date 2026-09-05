@@ -70,9 +70,28 @@ variable "enterprise_policy_location" {
   default     = "unitedstates"
 }
 
-variable "power_platform_environment_id" {
-  description = "The Power Platform environment ID to link (GUID format, e.g. '7ce30fc7-b70d-e1c5-beaa-15b668236810')"
+variable "power_platform_environment_name" {
+  description = "Display name of the Power Platform Sandbox environment created by Terraform"
   type        = string
+  default     = "Power Platform Networking Workshop"
+}
+
+variable "dataverse_language_code" {
+  description = "Dataverse language LCID"
+  type        = number
+  default     = 1033
+}
+
+variable "power_platform_environment_security_group_id" {
+  description = "Entra security group controlling environment access; the all-zero GUID means no security group restriction"
+  type        = string
+  default     = "00000000-0000-0000-0000-000000000000"
+}
+
+variable "dataverse_currency_code" {
+  description = "Dataverse base currency code"
+  type        = string
+  default     = "USD"
 }
 
 variable "internal_domain_name" {

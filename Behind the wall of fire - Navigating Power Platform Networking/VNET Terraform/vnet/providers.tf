@@ -14,6 +14,10 @@ terraform {
       source  = "hashicorp/azuread"
       version = "~> 3.0"
     }
+    powerplatform = {
+      source  = "microsoft/power-platform"
+      version = "~> 4.1"
+    }
   }
 }
 
@@ -25,3 +29,7 @@ provider "azurerm" {
 provider "azapi" {}
 
 provider "azuread" {}
+
+provider "powerplatform" {
+  use_cli = true # Azure CLI authentication (az login).
+}

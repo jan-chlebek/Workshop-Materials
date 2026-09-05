@@ -253,14 +253,15 @@ resource "azurerm_private_dns_zone_virtual_network_link" "internal" {
 # Power Platform Enterprise Policy (NetworkInjection kind)
 # A single policy connected to both VNETs. Uses AzAPI because
 # Microsoft.PowerPlatform is not in AzureRM.
-# Placed in the primary VNET's resource group.
+# Placed in the shared resource group.
 # ─────────────────────────────────────────────────────────────
 resource "azapi_resource" "enterprise_policy" {
-  type      = "Microsoft.PowerPlatform/enterprisePolicies@2020-10-30-preview"
-  name      = var.enterprise_policy_name
-  location  = var.enterprise_policy_location
-  parent_id = azurerm_resource_group.shared.id
-  tags      = var.tags
+  response_export_values = ["properties.systemId"]
+  type                   = "Microsoft.PowerPlatform/enterprisePolicies@2020-10-30-preview"
+  name                   = var.enterprise_policy_name
+  location               = var.enterprise_policy_location
+  parent_id              = azurerm_resource_group.shared.id
+  tags                   = var.tags
 
   body = {
     kind = "NetworkInjection"
@@ -304,53 +305,44 @@ resource "azurerm_role_assignment" "enterprise_policy_reader" {
 }
 
 # ─────────────────────────────────────────────────────────────
-# Link the Enterprise Policy to the Power Platform Environment
-#
-# VNET injection linking is NOT an ARM operation — it requires
-# the Microsoft.PowerPlatform.EnterprisePolicies PowerShell
-# module and the Enable-SubnetInjection cmdlet.
+# Provision the Power Platform environment and link its VNET policy
 # ─────────────────────────────────────────────────────────────
-resource "terraform_data" "environment_link" {
-  input = {
-    environment_id       = var.power_platform_environment_id
-    enterprise_policy_id = azapi_resource.enterprise_policy.id
+resource "powerplatform_environment" "this" {
+  display_name     = var.power_platform_environment_name
+  location         = var.enterprise_policy_location
+  environment_type = "Sandbox"
+
+  dataverse = {
+    language_code     = var.dataverse_language_code
+    currency_code     = var.dataverse_currency_code
+    security_group_id = var.power_platform_environment_security_group_id
   }
+}
 
-  provisioner "local-exec" {
-    interpreter = ["pwsh", "-NoProfile", "-Command"]
-    command     = <<-EOT
-      $ErrorActionPreference = 'Stop'
+# VNET support requires a Managed Environment.
+resource "powerplatform_managed_environment" "this" {
+  environment_id             = powerplatform_environment.this.id
+  is_usage_insights_disabled = true
+  is_group_sharing_disabled  = false
+  limit_sharing_mode         = "ExcludeSharingToSecurityGroups"
+  max_limit_user_sharing     = -1
+  solution_checker_mode      = "Warn"
+  suppress_validation_emails = true
+}
 
-      # ── Install & import the Enterprise Policies module ──
-      if (-not (Get-Module -ListAvailable -Name Microsoft.PowerPlatform.EnterprisePolicies)) {
-        Write-Host "Installing Microsoft.PowerPlatform.EnterprisePolicies module..."
-        Install-Module -Name Microsoft.PowerPlatform.EnterprisePolicies `
-          -Scope CurrentUser -Force -AllowClobber
-      }
-      Import-Module Microsoft.PowerPlatform.EnterprisePolicies -Force
+resource "powerplatform_enterprise_policy" "environment_link" {
+  environment_id = powerplatform_environment.this.id
+  policy_type    = "NetworkInjection"
+  system_id      = azapi_resource.enterprise_policy.output.properties.systemId
 
-      # ── Link enterprise policy to Power Platform environment ──
-      Write-Host "Linking enterprise policy to environment..."
-      Write-Host "  Environment: ${var.power_platform_environment_id}"
-      Write-Host "  Policy ARM ID: ${azapi_resource.enterprise_policy.id}"
-
-      try {
-        Write-Host "Attempting Enable-SubnetInjection with -Swap..."
-        Enable-SubnetInjection `
-          -EnvironmentId '${var.power_platform_environment_id}' `
-          -PolicyArmId '${azapi_resource.enterprise_policy.id}' `
-          -Swap
-        Write-Host "VNET injection link swapped successfully."
-      } catch {
-        Write-Host "Swap failed: $_"
-        Write-Host "Retrying without -Swap..."
-        Enable-SubnetInjection `
-          -EnvironmentId '${var.power_platform_environment_id}' `
-          -PolicyArmId '${azapi_resource.enterprise_policy.id}'
-        Write-Host "VNET injection link created successfully."
-      }
-    EOT
-  }
+  depends_on = [
+    powerplatform_managed_environment.this,
+    azurerm_role_assignment.enterprise_policy_reader,
+    azurerm_subnet_nat_gateway_association.powerplatform,
+    azurerm_nat_gateway_public_ip_association.powerplatform,
+    azurerm_private_dns_zone_virtual_network_link.this,
+    azurerm_private_dns_zone_virtual_network_link.internal
+  ]
 }
 
 # ─────────────────────────────────────────────────────────────

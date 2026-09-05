@@ -1,6 +1,6 @@
-subscription_id               = "9c65e913-1198-482f-8bfa-3d666aca72ea"
-power_platform_environment_id = "2b22e19d-c16c-e05e-90c2-e6c07b39f514"
-internal_domain_name          = "contoso.com" # Replace with your company's internal domain
+subscription_id                 = "9c65e913-1198-482f-8bfa-3d666aca72ea"
+power_platform_environment_name = "Power Platform Networking Workshop"
+internal_domain_name            = "contoso.com" # Replace with your company's internal domain
 
 shared_resource_group = {
   name     = "rg-powerplatform-vnet-shared"

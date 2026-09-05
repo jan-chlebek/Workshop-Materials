@@ -1,6 +1,6 @@
-subscription_id                = "YOUR-SUBSCRIPTION-ID"
-power_platform_environment_id  = "YOUR-ENVIRONMENT-GUID"
-internal_domain_name           = "contoso.com" # Replace with your company's internal domain
+subscription_id                 = "YOUR-SUBSCRIPTION-ID"
+power_platform_environment_name = "Power Platform Networking Workshop"
+internal_domain_name            = "contoso.com" # Replace with your company's internal domain
 
 shared_resource_group = {
   name     = "rg-powerplatform-shared"
@@ -32,3 +32,6 @@ vnets = {
 
 # Optional overrides
 # enterprise_policy_location     = "unitedstates"
+# dataverse_language_code = 1033
+# dataverse_currency_code = "USD"
+# power_platform_environment_security_group_id = "YOUR-ENVIRONMENT-ACCESS-GROUP-GUID"
